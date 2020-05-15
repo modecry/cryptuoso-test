@@ -74,7 +74,7 @@ package-lock.json
 
 # next.js build output
 .next
- next-env.d.ts
+next-env.d.ts
 
 # nuxt.js build output
 .nuxt
