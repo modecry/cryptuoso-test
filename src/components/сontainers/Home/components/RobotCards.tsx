@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState,SetStateAction } from "react"
 import styled, { AnyStyledComponent } from "styled-components"
 // material ui
 import ButtonMUI from "@material-ui/core/Button"
@@ -6,7 +6,8 @@ import ButtonMUI from "@material-ui/core/Button"
 import RobotCard from "./RobotCard"
 // types
 import { RobotsModel } from "contants/types/app"
-
+// services
+import LocalStorageService from "services/LocalStorageService"
 
 /**
  *  Функция рендеринга карточек на основе массива
@@ -20,9 +21,28 @@ const renderCards = (count: number,array: Array<RobotsModel>): React.ReactNodeAr
 		}
 	})
 
+/**
+ * Функция сохранения порядка подгрузки карточек
+ * @param count - исходное число
+ * @param setCallback - коллбек стейта
+ */
+const setCounter = (count: number,setCallback) => (): void => {
+	const newCount = count + 10
+	LocalStorageService.writeItems([{ key: "order_count",value: newCount }])
+	setCallback(newCount)
+}
+
+/**
+ * Функция получения counter'a  для компонента каротчек
+ */
+const getCounter = (): number|null => {
+	const orderCounter = LocalStorageService.getItem("order_count")
+	return orderCounter?.value || orderCounter
+}
+
 
 const RobotCards: React.FunctionComponent = ({ array }: RobotCardsTypes) => {
-	const [count, setCount] = useState(10)
+	const [count, setCount] = useState(getCounter() | 10)
 	const cards = renderCards(count, array)
 
 	return (
@@ -30,7 +50,7 @@ const RobotCards: React.FunctionComponent = ({ array }: RobotCardsTypes) => {
 			{cards}
 			{
 				count < array?.length &&
-				<Button onClick={() => setCount(count + 10)} variant="contained" color="primary">
+				<Button onClick={setCounter(count,setCount)} variant="contained" color="primary">
 					Загрузить еще
 				</Button>
 			}
