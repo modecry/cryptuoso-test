@@ -1,7 +1,8 @@
 import { useRouter, NextRouter } from "next/router"
+import RobotContainer from "components/сontainers/Robot/"
 
 
 export default (): React.FunctionComponent => {
 	const router = useRouter()
-	return <p>Test id: {router.query.id}</p>
+	return <RobotContainer id={router.query.id}/>
 }

@@ -23,7 +23,6 @@ const renderCards = (count: number,array: Array<RobotsModel>): React.ReactNodeAr
 
 const RobotCards: React.FunctionComponent = ({ array }: RobotCardsTypes) => {
 	const [count, setCount] = useState(10)
-
 	const cards = renderCards(count, array)
 
 	return (
