@@ -11,13 +11,13 @@ class WindowScrollService {
 
 	saveScrollPosition = (position: number): void => LocalStorageService.writeItems([{ key: "scroll_Y", value: position }])
 
-	scrollTo = (position: number): void => this.window.scrollTo(0,position)
+	scrollTo = (position: number): void => this.window.scroll(0,position)
 
 	/* обработчик скролла*/
 	scrollHandler = (): void => {
 		debounce(() => {
 			this.saveScrollPosition(this.window.scrollY)
-		}, 1500)
+		}, 500)
 	}
 	/* Подиски/отписки на события скролла*/
 	subscribeToListenScroll = (method: any): void => this.window.addEventListener("scroll",method)

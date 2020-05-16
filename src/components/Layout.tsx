@@ -1,7 +1,6 @@
 import * as React from "react"
 import styled,{ AnyStyledComponent } from "styled-components"
 // next components
-import Link from "next/link"
 import Head from "next/head"
 
 const Layout: React.FunctionComponent = ({ children, title }: LayoutPropsInterface) =>

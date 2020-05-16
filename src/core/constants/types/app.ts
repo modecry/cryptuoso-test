@@ -13,3 +13,10 @@ export type RobotsModel ={
 export type AppState ={
 	robots: Array<RobotsModel> | null
 }
+
+export type AppContextTypes = {
+	state: {
+		robots: Array<RobotsModel> | null
+	}
+	setAppState: void
+}

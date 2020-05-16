@@ -7,11 +7,11 @@ import ButtonMUI from "@material-ui/core/Button"
 // enhacners
 import { AppContext } from "enhancers/appContext"
 // types
-import { RobotsModel,Statuses,AppState } from "constants/types/app"
+import { RobotsModel,Statuses, AppContextTypes } from "constants/types/app"
 
 
 const RobotContainer: React.FunctionComponent = ({ id }: RobotContainerTypes) => {
-	const { robots }: AppState = useContext(AppContext)
+	const { state:{robots} }: AppContextTypes = useContext(AppContext)
 	const RobotInfo: RobotsModel| undefined = robots?.find(item => item.id === id)
 
 	if (RobotInfo) {

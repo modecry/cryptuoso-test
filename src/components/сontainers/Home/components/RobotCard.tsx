@@ -8,7 +8,7 @@ import Link from "next/link"
 
 /* Robotcards components*/
 const RobotCard: React.FunctionComponent = ({ code, id }: RobotCardTypes) =>
-	<Link href={`/robot/${id}`}>
+	<Link href={ { pathname: "/robot", query: { id } }} >
 		<Card>
 			<Typography variant="h5">{code}</Typography>
 		</Card>
