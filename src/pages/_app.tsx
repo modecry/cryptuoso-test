@@ -7,13 +7,18 @@ import App from "next/app"
 // enhancers
 import withApollo from "enhancers/withApollo"
 import { AppContextProvider } from "enhancers/appContext"
+// types
+import { AppState } from "constants/types/app"
+// fakeData
+import fakeData from "constants/fakeData.json"
+
 
 /**
  *  Основной компонент приложения
  */
 class AppGlobal extends App<{},AppState> {
 	state: AppState = {
-		robots: null,
+		robots: fakeData,
 	}
 
 	/* Метод изменения стейта приложения*/
@@ -24,7 +29,6 @@ class AppGlobal extends App<{},AppState> {
 
 	render() {
 		const { Component, pageProps }: AppProps = this.props
-
 		return (
 			<AppContextProvider
 				value={{ ...this.state, changeAppState: this.changeAppState }}
@@ -32,11 +36,6 @@ class AppGlobal extends App<{},AppState> {
 				<Component {...pageProps} />
 			</AppContextProvider>)
 	}
-}
-
-// Базовый интерфейс стейта
-export interface AppState {
-	robots: Array<any> | null // TODO: Прописать тип для объекта робота
 }
 
 

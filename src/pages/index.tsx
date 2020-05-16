@@ -1,12 +1,11 @@
 import React from "react"
 import Layout from "components/Layout"
-import { useQuery } from "@apollo/react-hooks"
+// containers
+import HomeContainer from "components/сontainers/Home/"
 
-const Index: React.FunctionComponent = () => {
-	return (
-		<Layout>
-			<h1>Home page</h1>
-		</Layout>)
-}
+const Index: React.FunctionComponent = () =>
+	<Layout title={"Robots List"}>
+		<HomeContainer />
+	</Layout>
 
 export default Index
