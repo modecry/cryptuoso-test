@@ -7,26 +7,33 @@ import Typography from "@material-ui/core/Typography"
 import { AppContext } from "enhancers/appContext"
 // components
 import RobotCards from "./components/RobotCards"
+import HomeLayout from "./HomeLayout"
 // types
-import { AppState, AppContextTypes } from "contants/types/app"
+import { AppContextTypes } from "contants/types/app"
+// graphql
+import { useQuery } from "@apollo/react-hooks"
+import GET_ROBOTS from "graphQL/GET_ROBOTS"
 
 const HomeContainer: React.FunctionComponent = () => {
-	const { state,setAppState }: AppContextTypes = useContext(AppContext)
-	
+	const { state, setAppState }: AppContextTypes = useContext(AppContext)
+	let { robots } = state
+
+	if (!state.robots) {
+		const { loading, error, data } = useQuery(GET_ROBOTS)
+		if (loading) {
+			return <HomeLayout>Loading...</HomeLayout>
+		}
+		if (error) {
+			return <HomeLayout>error</HomeLayout>
+		}
+		robots = data.robots
+		setAppState("robots",data.robots)
+	}
 	return (
-		<>
-			<TitleHomeContainer variant="h1" component="h1"> Robots List 🤖</TitleHomeContainer>
-			{/* <RobotCards array={robots} />*/}
-			<Link href={{ pathname: "/robot", query: { id: "321" } } } ><a>test</a></Link>
-		</>
+		<HomeLayout>
+			<RobotCards array={robots}/>
+		</HomeLayout>
 	)
 }
-
-/* styles*/
-const TitleHomeContainer: AnyStyledComponent = styled(Typography)`
-	text-align: center;
-	padding: 10px 0;
-`
-
 
 export default HomeContainer
