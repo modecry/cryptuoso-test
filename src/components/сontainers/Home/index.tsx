@@ -1,13 +1,11 @@
 import React, { useContext, useEffect } from "react"
-import styled, { AnyStyledComponent } from "styled-components"
-import Link from "next/link"
-// material ui
-import Typography from "@material-ui/core/Typography"
 // enhacners
 import { AppContext } from "enhancers/appContext"
 // components
 import RobotCards from "./components/RobotCards"
 import HomeLayout from "./HomeLayout"
+import Loader from "components/Loader"
+import ErrorComponent from "components/ErrorComponent"
 // types
 import { AppContextTypes, RobotsModel } from "contants/types/app"
 // graphql
@@ -21,10 +19,10 @@ const HomeContainer: React.FunctionComponent = () => {
 	if (!robots) {
 		const { loading, error, data } = useQuery(GET_ROBOTS)
 		if (loading) {
-			return <HomeLayout>Loading...</HomeLayout>
+			return <HomeLayout><Loader /></HomeLayout>
 		}
 		if (error) {
-			return <HomeLayout>error</HomeLayout>
+			return <HomeLayout><ErrorComponent  message="Ошибка загрузки данных (" buttonText="Повторить" buttonPath="/"/></HomeLayout>
 		}
 		robots = data.robots
 		setAppState("robots",robots)

@@ -6,12 +6,14 @@ import Typography from "@material-ui/core/Typography"
 import ButtonMUI from "@material-ui/core/Button"
 // enhacners
 import { AppContext } from "enhancers/appContext"
+// components
+import ErrorComponent from "components/ErrorComponent"
 // types
 import { RobotsModel,Statuses, AppContextTypes } from "constants/types/app"
 
 
 const RobotContainer: React.FunctionComponent = ({ id }: RobotContainerTypes) => {
-	const { state:{robots} }: AppContextTypes = useContext(AppContext)
+	const { state: { robots } }: AppContextTypes = useContext(AppContext)
 	const RobotInfo: RobotsModel| undefined = robots?.find(item => item.id === id)
 
 	if (RobotInfo) {
@@ -27,14 +29,7 @@ const RobotContainer: React.FunctionComponent = ({ id }: RobotContainerTypes) =>
 			</RobotInfoContainer>
 		)
 	}
-	return (
-		<RobotInfoContainer>
-			<Typography variant="h3">Робот не найден 😢</Typography>
-			<Link href="/">
-				<Button variant="contained" color="primary">Назад</Button>
-			</Link>
-		</RobotInfoContainer>
-	)
+	return <ErrorComponent message="Такого робота не существует" buttonText="Назад" buttonPath="/"/>
 }
 
 
