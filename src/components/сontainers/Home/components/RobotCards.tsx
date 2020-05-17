@@ -12,12 +12,12 @@ import LocalStorageService from "services/LocalStorageService";
 
 /**
  *  Функция рендеринга карточек на основе массива
- * @param order - порядок элементов  (кратен 10чным значениям)
+ * @param count - порядок элементов  (кратен 10чным значениям)
  * @param array -  массив данных
  */
 const renderCards = (count: number,array: Array<RobotsModel>): React.ReactNodeArray =>
 	array.map((elemProps,index): React.ReactNode => {
-		if (index + 1 <= count) {
+		if (index++  <= count) {
 			return <RobotCard {...elemProps} key={elemProps.id}/>
 		}
 	})

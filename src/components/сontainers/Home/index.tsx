@@ -9,16 +9,16 @@ import { AppContext } from "enhancers/appContext"
 import RobotCards from "./components/RobotCards"
 import HomeLayout from "./HomeLayout"
 // types
-import { AppContextTypes } from "contants/types/app"
+import { AppContextTypes, RobotsModel } from "contants/types/app"
 // graphql
 import { useQuery } from "@apollo/react-hooks"
 import GET_ROBOTS from "graphQL/GET_ROBOTS"
 
 const HomeContainer: React.FunctionComponent = () => {
 	const { state, setAppState }: AppContextTypes = useContext(AppContext)
-	let { robots } = state
+	let robots: Array<RobotsModel> = state.robots
 
-	if (!state.robots) {
+	if (!robots) {
 		const { loading, error, data } = useQuery(GET_ROBOTS)
 		if (loading) {
 			return <HomeLayout>Loading...</HomeLayout>
@@ -27,7 +27,7 @@ const HomeContainer: React.FunctionComponent = () => {
 			return <HomeLayout>error</HomeLayout>
 		}
 		robots = data.robots
-		setAppState("robots",data.robots)
+		setAppState("robots",robots)
 	}
 	return (
 		<HomeLayout>
