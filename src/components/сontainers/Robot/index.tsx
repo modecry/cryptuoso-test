@@ -45,11 +45,10 @@ const RobotContainer: React.FunctionComponent<RobotContainerProps> = ({ robotId 
 	if (RobotInfo) {
 		const { code, status } = RobotInfo // десткртуризируем данные из конкретного робота
 		// объявляем иконку статуса
-		const statusIcon: React.ReactNode = Statuses[status] ? <StatusIcon>🟢</StatusIcon> : <StatusIcon>🔴</StatusIcon>
 		return (
 			<RobotInfoContainer>
 				<Typography variant="h3" component="h3">{code} 🤖</Typography>
-				<Typography variant="h4" component="h4">status: {statusIcon}</Typography>
+				<Typography variant="h4" component="h4">status: <StatusIcon status={Statuses[status]} /></Typography>
 				<Link href="/">
 					<Button variant="contained" color="primary">Назад</Button>
 				</Link>
@@ -72,7 +71,14 @@ const RobotInfoContainer: AnyStyledComponent = styled(AbsoluteCentredContainer)`
 `
 
 const StatusIcon: AnyStyledComponent = styled.span`
-	font-size: 25px;
+	position: relative;
+    top: 1px;
+	display: inline-block;
+	width: 22px;
+	height: 22px;
+	background-color: ${p => (p.status ? "#008000" : "#FF0000")};
+	border-radius: 25px;
+
 `
 
 export default RobotContainer
