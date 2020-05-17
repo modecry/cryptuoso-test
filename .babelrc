@@ -1,0 +1,31 @@
+{
+  "presets": ["next/babel", "@zeit/next-typescript/babel"],
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "root": ["./"],
+        "alias": {
+          "components": "src/components",
+          "core": "src/core",
+          "graphQL": "src/graphql",
+          "pages": "src/pages",
+          "enhancers": "src/enhancers",
+          "constants": "src/core/constants",
+          "services": "src/core/services",
+          "utils": "src/core/utils",
+          "hooks": "src/components/hooks"
+        },
+        "extensions": [".js", ".jsx", ".tsx"]
+      }
+    ],
+    [
+      "styled-components",
+      {
+        "ssr": true,
+        "displayName": true,
+        "preprocess": true
+      }
+    ]
+  ]
+}

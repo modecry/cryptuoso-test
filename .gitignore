@@ -50,6 +50,9 @@ typings/
 # Optional npm cache directory
 .npm
 
+# npm lock-file
+package-lock.json
+
 # Optional eslint cache
 .eslintcache
 
@@ -71,6 +74,7 @@ typings/
 
 # next.js build output
 .next
+next-env.d.ts
 
 # nuxt.js build output
 .nuxt
@@ -86,3 +90,6 @@ typings/
 
 # DynamoDB Local files
 .dynamodb/
+
+# webstorm
+.idea/
