@@ -2,7 +2,7 @@ import React from "react"
 // components
 import MainLayout from "components/MainLayout"
 import ErrorComponent from "components/ErrorComponent"
-// contants
+// constants
 import { ERROR_MESSAGES } from "contants/ERROR_MESSAGES"
 
 

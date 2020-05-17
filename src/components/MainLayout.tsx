@@ -11,7 +11,6 @@ const MainLayout: React.FunctionComponent<LayoutProps> = ({ children, title }: L
 	<>
 		<Head>
 			<title>{title}</title>
-			<meta name="viewport" content="initial-scale=1.0, width=device-width" />
 		</Head>
 		<MainLayoutContent>
 			{children}
