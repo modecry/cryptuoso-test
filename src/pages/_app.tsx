@@ -8,11 +8,10 @@ import withApollo from "enhancers/withApollo"
 import { AppContextProvider } from "enhancers/appContext"
 
 
-const AppGlobal = ({ Component, pageProps }: AppProps) =>
+const AppGlobal: React.FunctionComponent<AppProps> = ({ Component, pageProps }: AppProps) =>
 	<AppContextProvider>
 		<Component {...pageProps} />
 	</AppContextProvider>
-
 
 
 export default withApollo(AppGlobal)

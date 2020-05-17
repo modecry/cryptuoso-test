@@ -13,7 +13,8 @@
           "enhancers": "src/enhancers",
           "constants": "src/core/constants",
           "services": "src/core/services",
-          "utils": "src/core/utils"
+          "utils": "src/core/utils",
+          "hooks": "src/components/hooks"
         },
         "extensions": [".js", ".jsx", ".tsx"]
       }

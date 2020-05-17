@@ -1,8 +1,5 @@
 import React, { useEffect } from "react"
-import Layout from "components/Layout"
-// next
-import { useRouter } from "next/router"
-
+import MainLayout from "components/MainLayout"
 // containers
 import HomeContainer from "components/сontainers/Home/"
 // services
@@ -11,11 +8,12 @@ import LocalStorageService from "services/LocalStorageService"
 
 const Index: React.FunctionComponent = () => {
 
+	/* use effect для подписки и отписки запоминания позиции скролла*/
 	useEffect(() => {
 		const scrollPosition = LocalStorageService.getItem("scroll_Y")
-		 if (scrollPosition) {
-			 WindowScrollService.scrollTo(scrollPosition)
-		 }
+		if (scrollPosition) {
+			WindowScrollService.scrollTo(scrollPosition)
+		}
 
 		WindowScrollService.subscribeToListenScroll(WindowScrollService.scrollHandler)
 		return () => {
@@ -25,9 +23,9 @@ const Index: React.FunctionComponent = () => {
 	},[])
 
 	return (
-		<Layout title={"Robots List"}>
+		<MainLayout title={"Robots List"}>
 			<HomeContainer />
-		</Layout>
+		</MainLayout>
 	)
 }
 

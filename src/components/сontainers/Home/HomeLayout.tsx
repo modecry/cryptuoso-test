@@ -4,7 +4,7 @@ import styled, { AnyStyledComponent } from "styled-components"
 import Typography from "@material-ui/core/Typography"
 
 
-const HomeLayout: React.FunctionComponent = ({ children }: HomeLayoutTypes) =>
+const HomeLayout: React.FunctionComponent<HomeLayoutProps> = ({ children }: HomeLayoutProps) =>
 	<HomeContainer>
 		<TitleHomeContainer variant="h1" component="h1"> Robots List 🤖</TitleHomeContainer>
 		{children}
@@ -12,8 +12,8 @@ const HomeLayout: React.FunctionComponent = ({ children }: HomeLayoutTypes) =>
 
 
 /* types*/
-type HomeLayoutTypes = {
-	children: React.ReactChildren
+interface HomeLayoutProps {
+	children: React.ReactChild
 }
 
 /* styles*/
@@ -22,7 +22,7 @@ const TitleHomeContainer: AnyStyledComponent = styled(Typography)`
 	padding: 10px 0;
 `
 
-const HomeContainer = styled.div`
+const HomeContainer: AnyStyledComponent = styled.div`
 	position: relative;
 	height: 100%;
 `

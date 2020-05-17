@@ -3,7 +3,11 @@ import styled,{ AnyStyledComponent } from "styled-components"
 // next components
 import Head from "next/head"
 
-const Layout: React.FunctionComponent = ({ children, title }: LayoutPropsInterface) =>
+/**
+ * Главный шаблон приложения
+ * @interface LayoutProps
+ */
+const MainLayout: React.FunctionComponent<LayoutProps> = ({ children, title }: LayoutProps) =>
 	<>
 		<Head>
 			<title>{title}</title>
@@ -14,18 +18,17 @@ const Layout: React.FunctionComponent = ({ children, title }: LayoutPropsInterfa
 		</MainLayoutContent>
 	</>
 
-/* prrops*/
-export interface LayoutPropsInterface {
-	children: React.ReactNode
-	title?: string
+/* props*/
+interface LayoutProps {
+	children: React.ReactChild // пробрасываемая страница
+	title: string // Заголовок страницы
 }
 
-/* styles*/
+/* Стили лейаута */
 const MainLayoutContent: AnyStyledComponent = styled.div`
 	width: 80%;
 	height: 100%;
 	margin: 0 auto;
 `
 
-
-export default Layout
+export default MainLayout

@@ -1,22 +1,25 @@
+/* ===== Global  констаты которые используются по всему приложению ===== */
+
+/* Статусы робота*/
 export enum Statuses {
 	stopped ,
 	started
 }
 
-/* app types*/
-export type RobotsModel ={
+/* Интерфейс модели робота */
+export interface RobotsModel{
 	id: string
 	code: string
 	status: string
 }
 
-export type AppState ={
+/* Интерфейс модели стейта*/
+export interface AppState{
 	robots: Array<RobotsModel> | null
 }
 
-export type AppContextTypes = {
-	state: {
-		robots: Array<RobotsModel> | null
-	}
-	setAppState: void
+/* Интерфейс модели контекста*/
+export interface AppContextTypes {
+	state: AppState
+	setAppState: (field: string,value: any) => void
 }

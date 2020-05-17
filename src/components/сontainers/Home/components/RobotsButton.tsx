@@ -1,48 +1,42 @@
 import React from "react"
-import styled, { AnyStyledComponent } from "styled-components"
-// material ui
-import ButtonMUI from "@material-ui/core/Button"
 // services
 import LocalStorageService from "services/LocalStorageService"
 import WindowScrollService from "services/WindowScrollService"
-
+//  constants
+import { PAGE_ORDER_CNT } from "../constants" // Констата порядка отображения элементов на странице
+// styles
+import { Button } from "components/styles/core"
 /**
  * Функция сохранения порядка подгрузки карточек
  * @param count - текущий показатель
  * @param stateCalbback - метод стейта родителя
  * @param decrement - флаг декркемента
  */
-const setCounter = (count: number, stateCalbback,decrement?: boolean) => (): void => {
+const setCounter = (count: number, stateCalbback: (value: number) => void,decrement?: boolean) => (): void => {
 	let newCount: number
 	if (decrement) {
-		newCount = count - (count - 10)
+		newCount = count - (count - PAGE_ORDER_CNT)
 		WindowScrollService.scrollTo(0)
 	} else {
-		newCount = count + 10
+		newCount = count + PAGE_ORDER_CNT
 	}
 	LocalStorageService.writeItems([{ key: "order_count", value: newCount }])
 	stateCalbback(newCount)
 }
 
 
-const RobotsButton: React.FunctionComponent = ({ count,stateCallback,decrement }: ButtonTypes) =>
+const RobotsButton: React.FunctionComponent<ButtonProps> = ({ count,stateCallback,decrement }: ButtonProps) =>
 	<Button onClick={setCounter(count,stateCallback,decrement)} variant="contained" color="primary">
 		{decrement ? "Скрыть" : "Показать еще"}
 	</Button>
 
 
-/* Button type*/
-type ButtonTypes = {
+/* Интрерфейс пропсов кнопки*/
+interface ButtonProps {
 	count: number
-	stateCalbback: void
+	stateCallback: (value: number) => void
 	decrement?: boolean
 }
 
-
-/* styles*/
-const Button: AnyStyledComponent = styled(ButtonMUI)`
-	display: block !important;
-	margin: 20px auto !important;
-`
 
 export default RobotsButton

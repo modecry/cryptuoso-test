@@ -1,21 +1,27 @@
 import React, { useState, createContext } from "react"
 import { withContext } from "with-context"
-// next
-import { useRouter } from "next/router"
-
 // types
-import { AppState } from "constants/types/app"
+import { AppState } from "contants/types/app"
 
 export const AppContext = createContext({})
 
-export const AppContextProvider: React.functionalComponent = (props: React.props) => {
+/**
+ * Компонент провайдер для передачи конекста
+ * @param props {any}
+ */
+export const AppContextProvider: React.FunctionComponent = (props: any) => {
 	const IntitalAppState: AppState = { robots: null }
 	const [state,setState] = useState(IntitalAppState)
 
-	/* Функция установки стейта*/
+	/**
+	 *  Функця установки стейта в приложение
+	 * @param field {string} - строковое название поля стейта
+	 * @param value {any} - значение поля
+	 * @return void
+	 */
 	const setAppState = (field: string,value: any): void => {
-		const newstate = { ...state,[field]: value }
-	    setState(newstate)
+		const newstate: AppState = { ...state,[field]: value }
+		setState(newstate)
 	}
 
 	return (
@@ -26,5 +32,6 @@ export const AppContextProvider: React.functionalComponent = (props: React.props
 		</AppContext.Provider>
 	)
 }
+
 
 export const withAppContext = withContext(AppContext)

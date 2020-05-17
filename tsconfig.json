@@ -26,7 +26,8 @@
       "enhancers/*": ["src/enhancers/*"],
       "contants/*": ["src/core/constants/*"],
       "services/*": ["src/core/services/*"],
-      "utils/*": ["src/core/utils/*"]
+      "utils/*": ["src/core/utils/*"],
+      "hooks/*": ["src/components/hooks/*"]
     }
   },
   "exclude": [

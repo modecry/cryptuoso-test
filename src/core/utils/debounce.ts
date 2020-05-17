@@ -2,10 +2,9 @@
  * Задержка вызова
  * @param {function} callback передаваемый коллбэк
  * @param {number} delay задержка в мс
- * @category Utils
  */
-const debounce = (callback, delay: number): void => {
-	let timeout:any
+const debounce = (callback: any, delay: number): void => {
+	let timeout
 	clearTimeout(timeout)
 	timeout = setTimeout(() => {
 		callback()

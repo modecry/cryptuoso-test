@@ -1,18 +1,18 @@
+import React from "react"
 import RobotContainer from "components/сontainers/Robot/"
+// components
+import MainLayout from "components/MainLayout"
 // next
-import Head from "next/head"
 import { useRouter } from "next/router"
 
 
-export default (): React.FunctionComponent => {
+const RobotPage: React.FunctionComponent = () => {
 	const router = useRouter()
 	return (
-		<>
-			<Head>
-				 <title>{`Robot: ${router.query.id}`}</title>
-				<meta name="viewport" content="initial-scale=1.0, width=device-width"/>
-			</Head>
-			<RobotContainer id={router.query.id}/>
-		</>
-	)
+		<MainLayout title={`Robot | ${router.query?.id}`}>
+			<RobotContainer robotId={router.query?.id as string}/>
+		</MainLayout>)
 }
+
+
+export default RobotPage

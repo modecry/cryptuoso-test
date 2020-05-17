@@ -1,42 +1,31 @@
-import styled, { AnyStyledComponent } from "styled-components"
+import React from "react"
+// next
 import Link from "next/link"
 // material ui
 import Typography from "@material-ui/core/Typography"
-import ButtonMUI from "@material-ui/core/Button"
-import React from "react"
+// styles
+import { Button, AbsoluteCentredContainer } from "components/styles/core"
 
 
+/**
+ * Компонент вывода сообщения об ошибке  при отстутвии данных
+ * @interface ErrorComponentProps
+ */
 const ErorComponent: React.FunctionComponent<ErrorComponentProps> = ({ message,buttonText,buttonPath }: ErrorComponentProps) =>
-	<ErrorInfoContainer>
+	<AbsoluteCentredContainer>
 		<Typography variant="h3">{message}</Typography>
 		<Link href={buttonPath}>
 			<Button variant="contained" color="primary">{buttonText}</Button>
 		</Link>
-	</ErrorInfoContainer>
+	</AbsoluteCentredContainer>
 
 
-/* error component interface*/
+/* Интерфейс пропсов для компонента ошибки*/
 interface ErrorComponentProps {
-	message: string
-	buttonText: string
-	buttonPath: string
+	message: string // сообщение выводимое пользователю
+	buttonText: string // текстовка кнопки
+	buttonPath: string // путь кнопки
 }
 
-/* styles*/
-const ErrorInfoContainer: AnyStyledComponent = styled.div`
-	position: absolute;
-	margin: auto;
-	left: 0;
-    right: 0;
-    top:50%;
-	transform: translateY(-50%);
-	text-align: center;
-`
-
-const Button: AnyStyledComponent = styled(ButtonMUI)`
-	width: 200px;
-	display: block !important;
-	margin: 40px auto !important;
-`
 
 export default ErorComponent

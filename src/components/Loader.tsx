@@ -1,13 +1,21 @@
-import * as React from "react";
-import styled, { keyframes } from "styled-components"
+import * as React from "react"
+import styled, { keyframes, AnyStyledComponent } from "styled-components"
 // material UI
 import Typography from "@material-ui/core/Typography"
+// styles
+import { AbsoluteCentredContainer } from "./styles/core"
+/**
+ * Компонент анимированной точки
+ * @interface DotProps - Интерфейс используемый компонентов
+ */
+const Dot: React.FunctionComponent<DotProps> = (props: DotProps) => <div className={props.className}>{props.children}</div>
 
 
-const Dot: React.FunctionComponent<DotProps> = props => <div className={props.className}>{props.children}</div>
-
-
-const Loader = () =>
+/**
+ *  Компонент лоадера
+ */
+// eslint-disable-next-line react/no-multi-comp
+const Loader: React.FunctionComponent = () =>
 	<LoaderContainer>
 		<LoaderContent>
 			<LoaderDot color="#8cc759" delay="0.5s"/>
@@ -23,19 +31,19 @@ const Loader = () =>
 interface DotProps {
 	className?: string
 	children?: React.ReactChildren
-	color: string
-	delay: string
+	color: string // цвет точки
+	delay: string // задержка анимации
 }
 
-/* loader animation*/
-const loaderAnimation = keyframes`
+/* Анимаця элементов лоадера*/
+const loaderAnimation: AnyStyledComponent = keyframes`
 	15% {transform: translateX(0);}
 	45% {transform: translateX(230px);}
 	65% {transform: translateX(230px);}
 	95% {transform: translateX(0);}
 `
 
-const loadingText = keyframes`
+const loadingText: AnyStyledComponent = keyframes`
     0%  {content: "LOADING";}
     25% {content: "LOADING.";}
     50% {content: "LOADING..";}
@@ -43,25 +51,18 @@ const loadingText = keyframes`
 `
 
 
-/* Loader styles*/
-const LoaderContainer = styled.div`
+/* Стили лоадера*/
+const LoaderContainer: AnyStyledComponent = styled(AbsoluteCentredContainer)`
     width: 400px;
-    margin: auto;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left:0;
-    right:0;
-    margin: auto;
 `
 
-const LoaderContent = styled.div`
+const LoaderContent: AnyStyledComponent = styled.div`
   height: 20px;
   width: 250px;
   margin: auto;
 `
 
-const LoaderDot = styled(Dot)`
+const LoaderDot: AnyStyledComponent = styled(Dot)`
   height: 20px;
   width: 20px;
   border-radius: 100%;
@@ -75,7 +76,7 @@ const LoaderDot = styled(Dot)`
   background-color: ${({ color }) => color};
 `
 
-const LoaderText = styled(Typography)`
+const LoaderText: AnyStyledComponent = styled(Typography)`
 	text-align: center;
 	padding-top: 20px;
 	&:after {

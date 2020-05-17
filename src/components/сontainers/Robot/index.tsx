@@ -3,61 +3,76 @@ import styled, { AnyStyledComponent } from "styled-components"
 import Link from "next/link"
 // material ui
 import Typography from "@material-ui/core/Typography"
-import ButtonMUI from "@material-ui/core/Button"
-// enhacners
+// enhancers
 import { AppContext } from "enhancers/appContext"
 // components
 import ErrorComponent from "components/ErrorComponent"
+import Loader from "components/Loader"
 // types
-import { RobotsModel,Statuses, AppContextTypes } from "constants/types/app"
+import { AppContextTypes, RobotsModel, Statuses } from "contants/types/app"
+// graphql
+import useFetchRobot, { robotsdData } from "hooks/useFetchRobot"
+// styles
+import { Button, AbsoluteCentredContainer } from "components/styles/core"
+// constnats
+import { ERROR_MESSAGES } from "contants/ERROR_MESSAGES"
 
+/**
+ * Контейнер страницы информации о роботе
+ * @inter RobotContainerProps
+ */
+const RobotContainer: React.FunctionComponent<RobotContainerProps> = ({ robotId }: RobotContainerProps) => {
+	const { state,setAppState }: AppContextTypes = useContext(AppContext) // получаем контекст
+	let currentRobots: Array<RobotsModel>| null = state.robots // получаем роботов из стейта
+	// Ищем нужного робота по id
+	const RobotInfo: RobotsModel| undefined = currentRobots?.find(item => item.id === robotId)
 
-const RobotContainer: React.FunctionComponent = ({ id }: RobotContainerTypes) => {
-	const { state: { robots } }: AppContextTypes = useContext(AppContext)
-	const RobotInfo: RobotsModel| undefined = robots?.find(item => item.id === id)
+	/* Если отстутвуют роботы в стейте*/
+	if (!currentRobots) {
+		const { loading, error, data }: robotsdData = useFetchRobot() // фетчим данные с запроса
+		/* Обрабатываем условия*/
+		if (loading) {
+			return <Loader />
+		}
+		if (error) {
+			return <ErrorComponent message={ERROR_MESSAGES.ERROR} buttonPath="/" buttonText="На главную"/>
+		}
+		currentRobots = data.robots // получаем роботов
+		setAppState("robots",currentRobots) // меняем стейт приложения
+	}
 
+	/* Если робот найден*/
 	if (RobotInfo) {
-		const { code,status }: RobotsModel = RobotInfo
-		const statusIcon = Statuses[status] ? <StatusIcon>🟢</StatusIcon> : <StatusIcon>🔴</StatusIcon>
+		const { code, status } = RobotInfo // десткртуризируем данные из конкретного робота
+		// объявляем иконку статуса
+		const statusIcon: React.ReactNode = Statuses[status] ? <StatusIcon>🟢</StatusIcon> : <StatusIcon>🔴</StatusIcon>
 		return (
 			<RobotInfoContainer>
-				<Typography variant="h3">{code} 🤖</Typography>
-				<Typography variant="h4">status: {statusIcon}</Typography>
+				<Typography variant="h3" component="h3">{code} 🤖</Typography>
+				<Typography variant="h4" component="h4">status: {statusIcon}</Typography>
 				<Link href="/">
 					<Button variant="contained" color="primary">Назад</Button>
 				</Link>
 			</RobotInfoContainer>
 		)
 	}
-	return <ErrorComponent message="Такого робота не существует" buttonText="Назад" buttonPath="/"/>
+	/* в случае если робот по id не найден, отображаем компонент ошибки */
+	return <ErrorComponent message={ERROR_MESSAGES.NOT_FOUND_ROBOT} buttonText="Назад" buttonPath="/"/>
 }
 
 
-/* Robot Container types*/
-type RobotContainerTypes ={
-	id: string
+/* Интерфейс пропсов для контейнара Robot*/
+interface RobotContainerProps{
+	robotId: string
 }
 
-/* styles*/
-const RobotInfoContainer: AnyStyledComponent = styled.div`
-	width: 80%;
-	position: absolute;
-	margin: auto;
-	  left: 0;
-    right: 0;
-    top:50%;
-	transform: translateY(-50%);
-	text-align: center;
+/* Стили компонента робота */
+const RobotInfoContainer: AnyStyledComponent = styled(AbsoluteCentredContainer)`
 	word-break: break-word;
 `
 
 const StatusIcon: AnyStyledComponent = styled.span`
 	font-size: 25px;
-`
-const Button: AnyStyledComponent = styled(ButtonMUI)`
-	width: 200px;
-	display: block !important;
-	margin: 40px auto !important;
 `
 
 export default RobotContainer
