@@ -15,7 +15,7 @@ class LocalStorageService {
 
 	getItems = (items: Array<string>): localStorageItems | Array<null> => items.map(key => ({ [key]: this.storage?.getItem(key) }))
 
-	getItem =(key: string): localStorageItem | null => this.storage?.getItem(key)
+	getItem =(key: string): number | string | null => this.storage?.getItem(key)
 
 }
 
