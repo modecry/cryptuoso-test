@@ -1,5 +1,5 @@
 import * as React from "react"
-import styled, { keyframes, AnyStyledComponent } from "styled-components"
+import styled, { keyframes, AnyStyledComponent, CSSKeyframes } from "styled-components"
 // material UI
 import Typography from "@material-ui/core/Typography"
 // styles
@@ -36,14 +36,14 @@ interface DotProps {
 }
 
 /* Анимаця элементов лоадера*/
-const loaderAnimation: AnyStyledComponent = keyframes`
+const loaderAnimation: CSSKeyframes = keyframes`
 	15% {transform: translateX(0);}
 	45% {transform: translateX(230px);}
 	65% {transform: translateX(230px);}
 	95% {transform: translateX(0);}
 `
 
-const loadingText: AnyStyledComponent = keyframes`
+const loadingText: CSSKeyframes = keyframes`
     0%  {content: "LOADING";}
     25% {content: "LOADING.";}
     50% {content: "LOADING..";}
